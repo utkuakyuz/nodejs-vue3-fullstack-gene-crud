@@ -8,9 +8,11 @@ This project was developed for learning purposes. I arbitrarily added PostgreSQL
 
 ## Further Work
 
-Further work will include Backend improvements. Such that Service-Repository pattern might be applied. Right now simple express endpoints are enough but in future comments a new pattern will be applied.
-
 Moreover I want to transform this backend into a new Bun - TypeScript project to modernize, became typesafe and get hands on experience on Bun. 
+
+## ACKNOWLEDGEMENT
+
+Now I created a new Backend app inside backend-ts folder. This app is created for Type-Safe Service-Repository pattern application and I completed it. It runs exactly as expected and now is type safe.
 
 ## Tech Stack
 
