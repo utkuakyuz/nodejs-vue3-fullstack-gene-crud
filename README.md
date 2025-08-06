@@ -4,15 +4,18 @@ This project is a full-stack CRUD application I created to develop my Vue.js and
 
 ## Development Notes
 
-This project was developed for learning purposes. I arbitrarily added PostgreSQL database in a Docker container and didn't use real genetic data. The project is designed to to revisit Vue3 and enhance my Node.js (specifically Express and Sequelize) skills.
+This project was developed for learning purposes. I arbitrarily added PostgreSQL database in a Docker container and didn't use real genetic data. The project is designed to to revisit Vue3 and enhance my Node.js (specifically Express and Sequelize) skills. I transformed my legacy backend code into a new pattern of service, controller and repository with type safe structure.
 
-## Further Work
+Main purpose of this app is not the UI/UX but integrating a Full Stack app created by Node.js (Express) and Postgres. 
 
-Moreover I want to transform this backend into a new Bun - TypeScript project to modernize, became typesafe and get hands on experience on Bun. 
+Further work will be including deploying this app into a well organized server and enhance the backend by adding new DTO's and other objects. Deploying will require removing Postgre from compose file and adding a remote DB to the project. After further improvement also I will update the UI.
 
 ## ACKNOWLEDGEMENT
 
 Now I created a new Backend app inside backend-ts folder. This app is created for Type-Safe Service-Repository pattern application and I completed it. It runs exactly as expected and now is type safe.
+
+## Screenshot from UI
+<img width="1383" height="653" alt="image" src="https://github.com/user-attachments/assets/96650608-7732-4476-a08c-b2c5ee6949f0" />
 
 ## Tech Stack
 
