@@ -1,0 +1,75 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: genetic_variants_db
+    environment:
+      POSTGRES_DB: genetic_variants
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - genetic_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d genetic_variants"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node.js Backend (now with ts change image if you want js from build context)
+  backend:
+    build:
+      context: ./backend-ts
+      dockerfile: Dockerfile
+    container_name: genetic_variants_backend
+    environment:
+      # Below Data should been taken as parameters from server (env)
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: genetic_variants
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      PORT: 3000
+      NODE_ENV: development
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy   # This line ensures we wait until healthCheck of Postgres is successful
+    networks:
+      - genetic_network
+    restart: unless-stopped
+
+  # Vue.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: genetic_variants_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    networks:
+      - genetic_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  genetic_network:
+    driver: bridge 
